@@ -122,7 +122,7 @@ class _SwipeScreenState extends State<SwipeScreen> {
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20.0),
                 child: Text(
-                  "Swipe to Switch Screens",
+                  "Swipe to Switch Screens. Long press to remove extras",
                   style: TextStyle(
                       color: MainColors().backgroundPurple, fontSize: 20),
                 ),

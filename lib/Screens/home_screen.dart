@@ -105,11 +105,25 @@ class MainPageWidgets extends StatelessWidget {
                 ),
                 Padding(
                   padding:
-                      const EdgeInsets.only(left: 20.0, right: 8.0, top: 20),
-                  child: Text(
-                    "Selected Extras",
-                    style: context.textTheme.labelLarge!.copyWith(
-                        fontSize: 16, fontFamily: FontNames().ubu["bold"]),
+                      const EdgeInsets.only(left: 20.0, right: 20.0, top: 20),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Selected Extras",
+                        style: context.textTheme.labelLarge!.copyWith(
+                            fontSize: 16, fontFamily: FontNames().ubu["bold"]),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          controller.resetVals();
+                        },
+                        child: Text(
+                          "Reset Buttons",
+                          style: context.textTheme.headlineSmall,
+                        ),
+                      )
+                    ],
                   ),
                 ),
                 SizedBox(
@@ -120,31 +134,61 @@ class MainPageWidgets extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          ExtrasButton(
-                            func: () {},
-                            text: "Inside Fridge",
-                            controller: controller,
-                            icon: FaIcon(
-                              FontAwesomeIcons.lightRefrigerator,
-                              color: MainColors().textWhite,
+                          Obx(
+                            () => ExtrasButton(
+                              labelVal: controller.vals[ValNames.inFridge],
+                              rem: () {
+                                controller.increaseInFridge(
+                                    false, ValNames.inFridge);
+                              },
+                              func: () {
+                                controller.increaseInFridge(
+                                    true, ValNames.inFridge);
+                              },
+                              text: "Inside Fridge",
+                              controller: controller,
+                              icon: FaIcon(
+                                FontAwesomeIcons.lightRefrigerator,
+                                color: MainColors().textWhite,
+                              ),
                             ),
                           ),
-                          ExtrasButton(
-                            func: () {},
-                            text: "Organizing",
-                            controller: controller,
-                            icon: FaIcon(
-                              FontAwesomeIcons.lightHandHoldingBox,
-                              color: MainColors().textWhite,
+                          Obx(
+                            () => ExtrasButton(
+                              labelVal: controller.vals[ValNames.orgVal],
+                              rem: () {
+                                controller.increaseInFridge(
+                                    false, ValNames.orgVal);
+                              },
+                              func: () {
+                                controller.increaseInFridge(
+                                    true, ValNames.orgVal);
+                              },
+                              text: "Organizing",
+                              controller: controller,
+                              icon: FaIcon(
+                                FontAwesomeIcons.lightHandHoldingBox,
+                                color: MainColors().textWhite,
+                              ),
                             ),
                           ),
-                          ExtrasButton(
-                            func: () {},
-                            text: "Small Blinds",
-                            controller: controller,
-                            icon: FaIcon(
-                              FontAwesomeIcons.lightBlindsOpen,
-                              color: MainColors().textWhite,
+                          Obx(
+                            () => ExtrasButton(
+                              labelVal: controller.vals[ValNames.blindsVal],
+                              rem: () {
+                                controller.increaseInFridge(
+                                    false, ValNames.blindsVal);
+                              },
+                              func: () {
+                                controller.increaseInFridge(
+                                    true, ValNames.blindsVal);
+                              },
+                              text: "Small Blinds",
+                              controller: controller,
+                              icon: FaIcon(
+                                FontAwesomeIcons.lightBlindsOpen,
+                                color: MainColors().textWhite,
+                              ),
                             ),
                           ),
                         ],
@@ -154,31 +198,61 @@ class MainPageWidgets extends StatelessWidget {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
-                            ExtrasButton(
-                              func: () {},
-                              text: "Patio",
-                              controller: controller,
-                              icon: FaIcon(
-                                FontAwesomeIcons.lightChair,
-                                color: MainColors().textWhite,
+                            Obx(
+                              () => ExtrasButton(
+                                labelVal: controller.vals[ValNames.patioVal],
+                                rem: () {
+                                  controller.increaseInFridge(
+                                      false, ValNames.patioVal);
+                                },
+                                func: () {
+                                  controller.increaseInFridge(
+                                      true, ValNames.patioVal);
+                                },
+                                text: "Patio",
+                                controller: controller,
+                                icon: FaIcon(
+                                  FontAwesomeIcons.lightChair,
+                                  color: MainColors().textWhite,
+                                ),
                               ),
                             ),
-                            ExtrasButton(
-                              func: () {},
-                              text: "Garage",
-                              controller: controller,
-                              icon: FaIcon(
-                                FontAwesomeIcons.lightGarage,
-                                color: MainColors().textWhite,
+                            Obx(
+                              () => ExtrasButton(
+                                labelVal: controller.vals[ValNames.garageVal],
+                                rem: () {
+                                  controller.increaseInFridge(
+                                      false, ValNames.garageVal);
+                                },
+                                func: () {
+                                  controller.increaseInFridge(
+                                      true, ValNames.garageVal);
+                                },
+                                text: "Garage",
+                                controller: controller,
+                                icon: FaIcon(
+                                  FontAwesomeIcons.lightGarage,
+                                  color: MainColors().textWhite,
+                                ),
                               ),
                             ),
-                            ExtrasButton(
-                              func: () {},
-                              text: "Chimney",
-                              controller: controller,
-                              icon: FaIcon(
-                                FontAwesomeIcons.lightChimney,
-                                color: MainColors().textWhite,
+                            Obx(
+                              () => ExtrasButton(
+                                labelVal: controller.vals[ValNames.chimneyVal],
+                                rem: () {
+                                  controller.increaseInFridge(
+                                      false, ValNames.chimneyVal);
+                                },
+                                func: () {
+                                  controller.increaseInFridge(
+                                      true, ValNames.chimneyVal);
+                                },
+                                text: "Chimney",
+                                controller: controller,
+                                icon: FaIcon(
+                                  FontAwesomeIcons.lightChimney,
+                                  color: MainColors().textWhite,
+                                ),
                               ),
                             ),
                           ],
@@ -226,11 +300,15 @@ class ExtrasButton extends StatelessWidget {
     required this.text,
     required this.controller,
     required this.icon,
+    required this.rem,
+    required this.labelVal,
   });
   final VoidCallback func;
   final String text;
   final HomeController controller;
   final FaIcon icon;
+  final VoidCallback rem;
+  final int labelVal;
 
   @override
   Widget build(BuildContext context) {
@@ -243,10 +321,11 @@ class ExtrasButton extends StatelessWidget {
       child: Column(
         children: [
           InkWell(
+            onLongPress: rem,
             onTap: func,
             child: Align(
               child: Badge(
-                label: const Text("1"),
+                label: Text(labelVal.toString()),
                 backgroundColor: MainColors().buttonPink,
                 padding: const EdgeInsets.symmetric(horizontal: 5),
                 alignment: const AlignmentDirectional(40, -5),

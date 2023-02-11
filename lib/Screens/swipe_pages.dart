@@ -116,7 +116,7 @@ class _SwipeScreenState extends State<SwipeScreen> {
             child: Container(
               alignment: Alignment.center,
               width: 400,
-              height: 100,
+              height: 150,
               decoration: BoxDecoration(
                   color: Colors.white, borderRadius: BorderRadius.circular(20)),
               child: Padding(

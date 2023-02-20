@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:house_cleaning/Controller/home_controller.dart';
 import 'package:house_cleaning/utils/main_colors.dart';
 
+import '../Routes/page_routes.dart';
 import '../utils/font_names.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -265,6 +266,9 @@ class MainPageWidgets extends StatelessWidget {
                   padding: const EdgeInsets.only(bottom: 10.0),
                   child: Center(
                     child: InkWell(
+                      onTap: () {
+                        Get.toNamed(PageRoutes().confirmationScreen);
+                      },
                       child: Container(
                         alignment: Alignment.center,
                         width: size.width * 0.8,

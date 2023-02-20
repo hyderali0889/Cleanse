@@ -6,6 +6,21 @@ class HomeController extends GetxController {
   RxBool initialCleaning = true.obs;
   RxBool upworkCleaning = false.obs;
   RxString selectedFreq = "Weekly".obs;
+  RxBool isConLoading = false.obs;
+  RxBool isAddLoading = false.obs;
+  RxBool isProfileUpdating = false.obs;
+
+  updateProfile(bool val) {
+    isProfileUpdating.value = val;
+  }
+
+  changeisCon(bool val) {
+    isConLoading.value = val;
+  }
+
+  changeisAdd(bool val) {
+    isAddLoading.value = val;
+  }
 
   RxMap vals = {
     ValNames.inFridge: 0,

@@ -1,4 +1,4 @@
-package com.example.house_cleaning
+package dev.hyderali.house_cleaning
 
 import io.flutter.embedding.android.FlutterActivity
 

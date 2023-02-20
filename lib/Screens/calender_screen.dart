@@ -28,6 +28,7 @@ class _CalenderScreenState extends State<CalenderScreen> {
           children: [
             SizedBox(
                 height: size.height * 0.3,
+                width: size.width,
                 child: Column(
                   children: [
                     Padding(

@@ -26,7 +26,7 @@ class _InfoScreenState extends State<InfoScreen> {
           children: [
             SizedBox(
               width: size.width,
-              height: size.height * 0.55,
+              height: size.height * 0.54,
               child: Stack(
                 children: [
                   Positioned(
@@ -48,7 +48,7 @@ class _InfoScreenState extends State<InfoScreen> {
             ),
             Container(
                 width: size.width,
-                height: size.height * 0.45,
+                height: size.height * 0.429,
                 decoration: BoxDecoration(
                     color: MainColors().backgroundPurple,
                     borderRadius: const BorderRadius.only(
@@ -66,7 +66,7 @@ class _InfoScreenState extends State<InfoScreen> {
                                 style: context.textTheme.bodyMedium!.copyWith(
                                     fontFamily: FontNames().monst["bold"])),
                             Padding(
-                              padding: const EdgeInsets.all(30.0),
+                              padding: const EdgeInsets.all(20.0),
                               child: Text(
                                   textAlign: TextAlign.center,
                                   "Book an appointment in \n"

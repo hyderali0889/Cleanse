@@ -34,7 +34,6 @@ dependencies:
   flat_buffers: ^2.0.5
   flutter:
     sdk: flutter
-  flutter_calendar_week: ^3.0.0
   font_awesome_flutter: ^10.3.0
   get: ^4.6.5
   objectbox: ^1.7.2

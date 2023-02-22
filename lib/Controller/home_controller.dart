@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 enum ValNames { inFridge, orgVal, blindsVal, patioVal, garageVal, chimneyVal }
@@ -9,6 +10,15 @@ class HomeController extends GetxController {
   RxBool isConLoading = false.obs;
   RxBool isAddLoading = false.obs;
   RxBool isProfileUpdating = false.obs;
+  RxInt selectedPage = 1.obs;
+
+  changePage(int page) {
+    selectedPage.value = page;
+  }
+
+  goToAnotherPage(PageController cont) {
+    cont.jumpToPage(2);
+  }
 
   updateProfile(bool val) {
     isProfileUpdating.value = val;

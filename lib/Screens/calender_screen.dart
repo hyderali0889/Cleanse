@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_calendar_week/flutter_calendar_week.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:house_cleaning/utils/firebase_functions.dart';
 import 'package:house_cleaning/utils/main_colors.dart';
 
+import '../Models/user_model.dart';
+import '../main.dart';
+import '../objectbox.g.dart';
 import '../utils/font_names.dart';
 
 class CalenderScreen extends StatefulWidget {
@@ -14,10 +17,34 @@ class CalenderScreen extends StatefulWidget {
 }
 
 class _CalenderScreenState extends State<CalenderScreen> {
+  dynamic data;
+  @override
+  void initState() {
+    super.initState();
+    if (!mounted) {
+      return;
+    }
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      getFirebaseData();
+    });
+  }
+
+  getFirebaseData() async {
+    if (!mounted) {
+      return;
+    }
+    dynamic fData;
+    fData = await FirebaseFunctions().getFirebaseData(context);
+
+    setState(() {
+      data = fData;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    CalendarWeekController weekController = CalendarWeekController();
+    Box<User> userData = objectBox.store.box<User>();
 
     return Scaffold(
       body: SafeArea(
@@ -27,41 +54,17 @@ class _CalenderScreenState extends State<CalenderScreen> {
         child: Column(
           children: [
             SizedBox(
-                height: size.height * 0.3,
+                height: size.height * 0.1,
                 width: size.width,
                 child: Column(
                   children: [
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 20.0),
                       child: Text(
-                        "Cleanse Calendar",
+                        "Cleanse History",
                         style: context.textTheme.bodyMedium!.copyWith(
                             fontFamily: FontNames().monst['semiBold']),
                       ),
-                    ),
-                    CalendarWeek(
-                      dayOfWeekStyle: TextStyle(
-                          color: MainColors().textWhite, fontSize: 12),
-                      pressedDateStyle: TextStyle(
-                          color: MainColors().textWhite, fontSize: 12),
-                      marginMonth: const EdgeInsets.only(bottom: 15),
-                      pressedDateBackgroundColor: MainColors().buttonPink,
-                      weekendsStyle: TextStyle(
-                          color: MainColors().textWhite, fontSize: 12),
-                      dateStyle: TextStyle(
-                          color: MainColors().textWhite, fontSize: 12),
-                      height: 120,
-                      controller: weekController,
-                      onDatePressed: (DateTime date) {
-                        print(date.day);
-                      },
-                      minDate: DateTime.now().add(
-                        const Duration(days: -365),
-                      ),
-                      maxDate: DateTime.now().add(
-                        const Duration(days: 365),
-                      ),
-                      backgroundColor: Colors.transparent,
                     ),
                   ],
                 )),
@@ -79,13 +82,31 @@ class _CalenderScreenState extends State<CalenderScreen> {
                   child: ListView(
                     children: [
                       Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          MainCard(size: size),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 20.0),
-                            child: MainCard(size: size),
-                          ),
-                          MainCard(size: size),
+                          data != null
+                              ? SizedBox(
+                                  height: size.height * 0.88,
+                                  child: ListView.builder(
+                                    itemCount: data.length,
+                                    itemBuilder: ((context, index) {
+                                      return Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: 12.0),
+                                        child: MainCard(
+                                          size: size,
+                                          hour: data[index]["Hour"].toString(),
+                                          name: userData.get(1)!.name,
+                                          cType: data[index]["Cleaning Type"]
+                                              .toString(),
+                                          price: "20",
+                                        ),
+                                      );
+                                    }),
+                                  ),
+                                )
+                              : const CircularProgressIndicator()
                         ],
                       ),
                     ],
@@ -104,9 +125,17 @@ class MainCard extends StatelessWidget {
   const MainCard({
     super.key,
     required this.size,
+    required this.hour,
+    required this.name,
+    required this.cType,
+    required this.price,
   });
 
   final Size size;
+  final String hour;
+  final String name;
+  final String cType;
+  final String price;
 
   @override
   Widget build(BuildContext context) {
@@ -117,7 +146,7 @@ class MainCard extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(top: 15.0),
           child: Text(
-            "10 pm",
+            "Time :  $hour : 00",
             style: context.textTheme.labelSmall!
                 .copyWith(fontFamily: FontNames().monst["semiBold"]),
           ),
@@ -133,14 +162,13 @@ class MainCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "User Name",
+                  name,
                   style: context.textTheme.headlineSmall!
                       .copyWith(fontFamily: FontNames().monst["bold"]),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 15.0),
-                  child: Text("Cleaning Type",
-                      style: context.textTheme.labelSmall),
+                  child: Text(cType, style: context.textTheme.labelSmall),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 5.0),
@@ -153,7 +181,7 @@ class MainCard extends StatelessWidget {
                       ),
                       Padding(
                         padding: const EdgeInsets.only(left: 10.0),
-                        child: Text("10 pm to 12 pm",
+                        child: Text("$hour : 00",
                             style: context.textTheme.headlineSmall!.copyWith(
                                 fontSize: 12,
                                 fontFamily: FontNames().monst["bold"])),
@@ -215,7 +243,7 @@ class MainCard extends StatelessWidget {
                         ),
                       ],
                     ),
-                    Text("\$ 50",
+                    Text("\$ $price",
                         style: context.textTheme.headlineSmall!.copyWith(
                             fontSize: 12,
                             fontFamily: FontNames().monst["semiBold"])),

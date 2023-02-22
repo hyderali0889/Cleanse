@@ -86,7 +86,7 @@ class _InfoScreenState extends State<InfoScreen> {
                           padding: const EdgeInsets.only(right: 20.0),
                           child: InkWell(
                             onTap: () {
-                              Get.toNamed(PageRoutes().swipeScreen);
+                              Get.toNamed(PageRoutes().swipeScreen , arguments: 1);
                             },
                             child: Row(
                               children: [

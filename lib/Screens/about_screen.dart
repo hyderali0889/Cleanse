@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:house_cleaning/Screens/swipe_pages.dart';
 import 'package:house_cleaning/utils/main_colors.dart';
-
 import '../Routes/page_routes.dart';
 import '../utils/font_names.dart';
 
@@ -54,21 +54,19 @@ class _AboutScreenState extends State<AboutScreen> {
                         style: context.textTheme.labelLarge!.copyWith(
                             fontSize: 18, fontFamily: FontNames().pub["bold"]),
                       ),
-                      const MainListItem(
-                        icon: FontAwesomeIcons.solidBell,
-                        text: "Notifications",
-                      ),
-                      const MainListItem(
-                        icon: FontAwesomeIcons.solidCalendar,
-                        text: "My Bookings",
-                      ),
-                      const MainListItem(
-                        icon: FontAwesomeIcons.solidCheckCircle,
-                        text: "My Plans",
+                      InkWell(
+                        onTap: () {
+                          Get.offAll(const SwipeScreen(selectedPage: 2));
+                        },
+                        child: const MainListItem(
+                          icon: FontAwesomeIcons.solidCalendar,
+                          text: "My Bookings",
+                        ),
                       ),
                       InkWell(
                         onTap: () {
-                          Get.toNamed(PageRoutes().userDataScreen ,arguments: true);
+                          Get.toNamed(PageRoutes().userDataScreen,
+                              arguments: true);
                         },
                         child: const MainListItem(
                           icon: FontAwesomeIcons.solidMap,

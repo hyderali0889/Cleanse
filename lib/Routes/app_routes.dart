@@ -18,7 +18,7 @@ class AppRoutes {
         name: PageRoutes().homeScreen,
         page: () => const HomeScreen(),
         binding: HomeBinding()),
-    GetPage(name: PageRoutes().swipeScreen, page: () => const SwipeScreen()),
+    GetPage(name: PageRoutes().swipeScreen, page: () =>  SwipeScreen(selectedPage: Get.arguments,  )),
     GetPage(name: PageRoutes().infoScreen, page: () => const InfoScreen()),
     GetPage(
         name: PageRoutes().confirmationScreen,

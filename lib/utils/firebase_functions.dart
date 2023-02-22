@@ -11,7 +11,7 @@ class FirebaseFunctions {
   Box<User> userData = objectBox.store.box<User>();
 
 
-  void addServicetoFirebase(String name, String address,VoidCallback func, context) {
+  void addServicetoFirebase(String address,VoidCallback func, context) {
     try {
       FirebaseFirestore.instance
           .collection(userData.get(1)!.name)
@@ -21,7 +21,9 @@ class FirebaseFunctions {
             ? "Initial Clenaing"
             : "Upwork Cleaning",
         "Cleaning Frequency": Get.find<HomeController>().selectedFreq.value,
-        "Time": DateTime.now() ,
+        "Hour": DateTime.now().hour,
+        "Month": DateTime.now().month,
+        "Year": DateTime.now().year,
         "Extras": {
           ValNames.inFridge.toString():
               Get.find<HomeController>().vals[ValNames.inFridge].toString(),

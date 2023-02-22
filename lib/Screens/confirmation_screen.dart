@@ -18,6 +18,8 @@ class ConfirmationScreen extends StatefulWidget {
 }
 
 class _ConfirmationScreenState extends State<ConfirmationScreen> {
+
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -217,15 +219,11 @@ class _ConfirmationScreenState extends State<ConfirmationScreen> {
                                     controller.changeisCon(false);
                                   } else {
                                     FirebaseFunctions().addServicetoFirebase(
-                                        userData.get(1)!.name,
-                                        userData.get(1)!.address,
-                                        () => {
-                                              showConfirmDialog(size),
-                                              setState(() {
-                                                controller.changeisCon(false);
-                                              })
-                                            },
-                                        context);
+                                        userData.get(1)!.address, () {
+                                      showConfirmDialog(size);
+
+                                      controller.changeisCon(false);
+                                    }, context);
                                   }
                                 },
                                 child: Obx(
@@ -290,7 +288,7 @@ class _ConfirmationScreenState extends State<ConfirmationScreen> {
                       children: [
                         IconButton(
                             onPressed: () {
-                              Get.offAllNamed(PageRoutes().swipeScreen);
+                              Get.offAllNamed(PageRoutes().swipeScreen , arguments: 1);
                             },
                             icon: const FaIcon(
                               FontAwesomeIcons.lightTimes,
